@@ -3,6 +3,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Crowdlink */
+  --cl-blue: #0084FF;
+  --cl-green: #41E897;
+
+  /* Deep blues */
+  --deep-0: #030812;
+  --deep-1: #040B18;
+  --deep-2: #06122A;
+  --deep-3: #071A3B;
 }
 
 @theme inline {
@@ -23,4 +33,149 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ==============================
+   Crowdlink Background (main)
+   ============================== */
+.burocrowd-bg{
+  background:
+    radial-gradient(900px 520px at 50% 92%,
+      rgba(65, 232, 151, 0.18) 0%,
+      rgba(65, 232, 151, 0.00) 60%),
+
+    radial-gradient(880px 560px at 82% 28%,
+      rgba(0, 132, 255, 0.22) 0%,
+      rgba(0, 132, 255, 0.00) 62%),
+
+    radial-gradient(760px 520px at 18% 20%,
+      rgba(0, 132, 255, 0.18) 0%,
+      rgba(0, 132, 255, 0.00) 58%),
+
+    linear-gradient(135deg,
+      var(--deep-0) 0%,
+      var(--deep-2) 35%,
+      rgba(0, 132, 255, 0.20) 65%,
+      rgba(0, 132, 255, 0.34) 100%),
+
+    linear-gradient(180deg,
+      var(--deep-0) 0%,
+      var(--deep-1) 55%,
+      var(--deep-0) 100%);
+
+  background-attachment: fixed;
+}
+
+/* ==============================
+   Login split
+   ============================== */
+.burocrowd-loginLeft{
+  background:
+    radial-gradient(900px 600px at 70% 30%, rgba(0,132,255,.35), rgba(0,132,255,0) 60%),
+    linear-gradient(135deg, var(--deep-0) 0%, var(--deep-2) 45%, rgba(0,132,255,.22) 100%);
+}
+
+.burocrowd-loginRight{
+  background:
+    radial-gradient(820px 520px at 50% 20%, rgba(65,232,151,.55), rgba(65,232,151,0) 62%),
+    linear-gradient(135deg, rgba(65,232,151,.30) 0%, rgba(65,232,151,.16) 40%, rgba(255,255,255,.10) 100%),
+    linear-gradient(180deg, #f4fff9 0%, #eafff4 60%, #f7fffb 100%);
+}
+
+/* Animated blobs */
+.blob{
+  position:absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: .55;
+  transform: translate3d(0,0,0);
+  animation: floaty 10s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+.blob.b1{
+  left: -120px; top: -120px;
+  background: radial-gradient(circle at 30% 30%, rgba(0,132,255,.90), rgba(0,132,255,0) 60%);
+  animation-duration: 12s;
+}
+.blob.b2{
+  right: -160px; top: 120px;
+  background: radial-gradient(circle at 35% 35%, rgba(0,132,255,.70), rgba(0,132,255,0) 62%);
+  animation-duration: 14s;
+  animation-delay: -2s;
+}
+.blob.b3{
+  left: 80px; bottom: -220px;
+  background: radial-gradient(circle at 35% 35%, rgba(65,232,151,.35), rgba(65,232,151,0) 65%);
+  animation-duration: 16s;
+  animation-delay: -4s;
+}
+
+.gridNoise{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .06;
+  mask-image: radial-gradient(600px 420px at 45% 30%, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+@keyframes floaty{
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(18px,-14px,0) scale(1.06); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+
+@media (max-width: 1024px){
+  .blob{ opacity: .40; }
+  .gridNoise{ opacity: .04; }
+}
+
+/* ==============================
+   Fixed card + step animation
+   ============================== */
+
+/* Box fijo: SIEMPRE mismo alto */
+.buro-fixedCardCompact{
+  height: 440px;
+  max-height: 440px;
+}
+
+/* Si tu pantalla es más bajita (Mac Air), reduce */
+@media (max-height: 760px){
+  .buro-fixedCardCompact{
+    height: 400px;
+    max-height: 400px;
+  }
+}
+
+/* Scroll interno (el box no crece) */
+.burocrowd-innerScroll{
+  height: 100%;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+/* Scrollbar discreto */
+.burocrowd-innerScroll::-webkit-scrollbar{ width: 10px; }
+.burocrowd-innerScroll::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.14);
+  border-radius: 999px;
+}
+.burocrowd-innerScroll::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+}
+
+/* Animación suave al cambiar sección */
+.buro-stepAnim{
+  animation: stepFade .20s ease-out;
+}
+@keyframes stepFade{
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
